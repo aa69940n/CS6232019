@@ -4,10 +4,12 @@ Write the following queries in SQL.
 
 
 1. What are the #prods whose name begins with a ’p’ and are less than $300.00?
-```SELECT prod_id
-FROM Product
-WHERE pname
-LIKE 'p%' AND price < 300;```
+	```
+	SELECT prod_id
+	FROM Product
+	WHERE pname
+	LIKE 'p%' AND price < 300;
+	```
 
 2. Names of the products stocked in ”d2”. (a) without in/not in (b) with in/not in
 
