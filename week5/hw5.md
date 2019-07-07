@@ -4,12 +4,14 @@ Write the following queries in SQL.
 
 
 1. What are the #prods whose name begins with a ’p’ and are less than $300.00?
+
 	```
 	SELECT prod_id
 	FROM Product
 	WHERE pname
 	LIKE 'p%' AND price < 300;
 	```
+
 
 2. Names of the products stocked in ”d2”. (a) without in/not in (b) with in/not in
 
@@ -54,6 +56,7 @@ Write the following queries in SQL.
 	);
 	```
 
+
 4. Addresses of the depots where the product ”p1” is stocked. (a) without exists/not exists and without in/not in (b) with in/not in (c) with exists/not exists
 
 	a.
@@ -78,6 +81,7 @@ Write the following queries in SQL.
 	WHERE EXISTS
 	(SELECT dep_id FROM Stock WHERE prod_id='p1' and dep_id=d.dep_id);
 	```
+
 
 5. #prods whose price is between $250.00 and $400.00. (a) using intersect. (b) without intersect.
 
