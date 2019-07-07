@@ -24,7 +24,11 @@ public class GroupProject {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?useTimezone=true&serverTimezone=UTC", System.getenv("DBUSER"),System.getenv("DBPASSWORD"));
+        Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/test?useTimezone=true&serverTimezone=UTC",
+                System.getenv("DBUSER"),
+                System.getenv("DBPASSWORD")
+        );
         // For atomicity
         conn.setAutoCommit(false);
 
