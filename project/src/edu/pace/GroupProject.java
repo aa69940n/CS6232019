@@ -17,7 +17,7 @@ public class GroupProject {
 
     /**
      * @param args
-     * @throws ClassNotFoundException
+     * @throws ClassNotFoundException 
      * @throws SQLException
      */
     public static void main(String args[]) throws ClassNotFoundException, SQLException {
@@ -28,9 +28,9 @@ public class GroupProject {
         
         // For atomicity
         conn.setAutoCommit(false);
-
         // For isolation
         conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        
         Statement stmt = null;
         try {
             // create statement object
@@ -39,13 +39,17 @@ public class GroupProject {
             populateDB(stmt);
             
             //Query tables and print, before deletion 
+            System.out.println("Tables before transaction: ");
             queryAll(stmt);
             
             // The depot d1 is deleted from Depot and Stock.
             stmt.executeUpdate("DELETE FROM Stock WHERE dep_id='d1'");
             stmt.executeUpdate("DELETE FROM depot WHERE dep_id='d1'");
+            System.out.println("Depot 'd1' deleted.");
+            System.out.println();
             
-            //Query tables and print, after deletion 
+            //Query tables and print, after deletion
+            System.out.println("Tables after transaction: ");
             queryAll(stmt);
 
         } catch (SQLException e) {
@@ -91,8 +95,6 @@ public class GroupProject {
 		stmt.executeUpdate("ALTER TABLE Stock ADD CONSTRAINT fk_stock_prod FOREIGN KEY (prod_id) REFERENCES Product(prod_id)");
 		stmt.executeUpdate("ALTER TABLE Stock ADD CONSTRAINT fk_stock_depot FOREIGN KEY (dep_id) REFERENCES Depot(dep_id)");
 		
-		//does not have a contingency for ON UPDATE / DELETE, add?
-		
 		System.out.println("Tables created");
 		
 		//populate tables with sample data
@@ -105,9 +107,10 @@ public class GroupProject {
 				+ "('p3', 'd4', 2000), ('p2', 'd4', 1500), ('p2', 'd1', -400), ('p2', 'd2', 2000)");
 		
 		System.out.println("Tables populated");
+		System.out.println();
     }
     
-    /**
+    /** 
      * Method for printing the ResultSet of a query in a table-like format
      * @param r
      * @throws SQLException
@@ -116,6 +119,7 @@ public class GroupProject {
     	while(r.next()) {
     		System.out.println(r.getString(1)+"\t "+r.getString(2)+"\t "+r.getString(3));   		
     	}   	
+    	System.out.println();
     }
     
     /**
@@ -125,22 +129,18 @@ public class GroupProject {
      */
     public static void queryAll(Statement stmt) throws SQLException {
         ResultSet rP = stmt.executeQuery("SELECT * FROM Product");
-        System.out.println();
         System.out.println("Product:");
         System.out.println("prod_id  " + "pname " + " price");
         printResultSet(rP);
         
         ResultSet rD = stmt.executeQuery("SELECT * FROM Depot");
-        System.out.println();
         System.out.println("Depot:");
         System.out.println("dep_id  " + " addr " + "\t\t volume");
         printResultSet(rD);
         
         ResultSet rS = stmt.executeQuery("SELECT * FROM Stock");
-        System.out.println();
         System.out.println("Stock:");
         System.out.println("prod_id  " + "dep_id " + " quantity");
-        printResultSet(rS);
-    	
+        printResultSet(rS);           	
     }
 }
