@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 /**
  * @author Alaa Awad
  * @author Leonard Marino
+ * @author Evelyn Krivorotova
+ *
  * Sample of JDBC for MySQL
  *
  */
@@ -59,12 +61,16 @@ public class GroupProject {
 
                 // we only commit if all transactions were successful. atomicity
                 conn.rollback();
+
+                System.out.println("Transaction rolled back.");
+
                 stmt.close();
                 conn.close();
                 return;
             }
 
             conn.commit();
+            System.out.println("Transaction committed.");
             stmt.close();
             conn.close();
         }
@@ -119,7 +125,7 @@ public class GroupProject {
      */
     public static void printResultSet(ResultSet r) throws SQLException {
         while(r.next()) {
-            System.out.println(r.getString(1)+"\t "+r.getString(2)+"\t "+r.getString(3));
+            System.out.println(r.getString(1)+"\t\t\t"+r.getString(2)+"\t\t\t"+r.getString(3));
         }
         System.out.println();
     }
@@ -132,17 +138,17 @@ public class GroupProject {
     public static void queryAll(Statement stmt) throws SQLException {
         ResultSet rP = stmt.executeQuery("SELECT * FROM Product");
         System.out.println("Product:");
-        System.out.println("prod_id  " + "pname " + " price");
+        System.out.println("prod_id\t" + "\tpname" + "\t\tprice");
         printResultSet(rP);
 
         ResultSet rD = stmt.executeQuery("SELECT * FROM Depot");
         System.out.println("Depot:");
-        System.out.println("dep_id  " + " addr " + "\t\t volume");
+        System.out.println("dep_id\t\t" + "addr\t\t" + "volume");
         printResultSet(rD);
 
         ResultSet rS = stmt.executeQuery("SELECT * FROM Stock");
         System.out.println("Stock:");
-        System.out.println("prod_id  " + "dep_id " + " quantity");
+        System.out.println("prod_id\t\t" + "dep_id\t\t" + " quantity\t");
         printResultSet(rS);
     }
 }
