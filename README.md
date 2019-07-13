@@ -1,4 +1,4 @@
-### CS 623 Week7 Group Project
+### CS 623 Week6 Group Project
 #### Summer 1 2019
 #### Alaa Awad
 
